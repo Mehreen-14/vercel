@@ -1,58 +1,22 @@
 import React from "react";
-import * as Components from './Components';
+import {BrowserRouter as Router,Routes ,Route} from "react-router-dom";
+import { GlobalContextProvider } from "./context/GlobalContext.jsx";
+import Welcome from "./components/welcompage.jsx";
+import HomePage from "./routes/Home.jsx";
+import Restaurant from "./Pages/CustomerPages/Restaurant/restaurant.js";
+
 
 function App() {
     const [signIn, toggle] = React.useState(true);
      return(
-         <Components.Container>
-             <Components.SignUpContainer signinIn={signIn}>
-                 <Components.Form>
-                     <Components.Title>Create Account</Components.Title>
-                     <Components.Input type='text' placeholder='Name' />
-                     <Components.Input type='email' placeholder='Email' />
-                     <Components.Input type='password' placeholder='Password' />
-                     <Components.Input type='password' placeholder='Confirm Password' />
-                     <Components.Button>Sign Up</Components.Button>
-                 </Components.Form>
-             </Components.SignUpContainer>
-
-             <Components.SignInContainer signinIn={signIn}>
-                  <Components.Form>
-                      <Components.Title>Sign in</Components.Title>
-                      <Components.Input type='email' placeholder='Email' />
-                      <Components.Input type='password' placeholder='Password' />
-                      <Components.Anchor href='#'>Forgot your password?</Components.Anchor>
-                      <Components.Button>Sign In</Components.Button>
-                  </Components.Form>
-             </Components.SignInContainer>
-
-             <Components.OverlayContainer signinIn={signIn}>
-                 <Components.Overlay signinIn={signIn}>
-
-                 <Components.LeftOverlayPanel signinIn={signIn}>
-                     <Components.Title>Hello There</Components.Title>
-                     <Components.Paragraph>
-                         To keep connected with us please login with your personal info
-                     </Components.Paragraph>
-                     <Components.GhostButton onClick={() => toggle(true)}>
-                         Sign In
-                     </Components.GhostButton>
-                     </Components.LeftOverlayPanel>
-
-                     <Components.RightOverlayPanel signinIn={signIn}>
-                       <Components.Title>FoodXpress</Components.Title>
-                       <Components.Paragraph>
-                           Enter Your personal details and start journey with us
-                       </Components.Paragraph>
-                           <Components.GhostButton onClick={() => toggle(false)}>
-                               Sign Up
-                           </Components.GhostButton> 
-                     </Components.RightOverlayPanel>
- 
-                 </Components.Overlay>
-             </Components.OverlayContainer>
-
-         </Components.Container>
+        <GlobalContextProvider>
+            <Router>
+                <Routes >
+                    <Route exact path="/" Component={Welcome}/>
+                    <Route exact path="/Restaurant" Component={Restaurant}/>  
+                </Routes >
+            </Router>
+        </GlobalContextProvider>
      )
 }
 
